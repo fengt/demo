@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="${layout}">
+<head>
+    <title>首页</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div layout:fragment="content">
+<style>
+	.has-error{
+		color:#A94442;
+	}
+</style>
+	<form id="user_form" class="col-md-9 form-horizontal" method="post" th:action="${user.id==0 ? '/user/save' :('/user/update')}" th:object="${user}">
+		<input type="hidden" th:field="*{id}" />
+		<div class="form-group" >
+			<label for="userName" class="col-sm-2 col-md-2 control-label" >用户名称</label>
+			<div class="col-sm-10 col-md-10" th:classappend="${#fields.hasErrors('userName') ? 'has-error':''}">
+				<input class="form-control userName" placeholder="用户名" th:field="*{userName}" />
+				<label class="help-block" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="firstName" class="col-sm-2 col-md-2 control-label" >姓</label>
+			<div class=" col-sm-10 col-md-10">
+				<input class="form-control" placeholder="firstName" th:field="*{firstName}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastName" class="col-sm-2 col-md-2 control-label" >名</label>
+			<div class=" col-sm-10 col-md-10">
+				<input class="form-control" placeholder="lastName" th:field="*{lastName}" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="isActive" class="col-sm-2 col-md-2 control-label" >是否激活</label>
+			<div class=" col-sm-10 col-md-10" >
+				<label class="radio-inline">
+					<input type="radio" th:field="*{isActive}" value="1" /> 是
+				</label>
+				<label class="radio-inline">
+					<input type="radio" th:field="*{isActive}" value="0" /> 否
+				</label>
+			</div>
+		</div>
+			<input class="btn btn-primary col-md-offset-4 col-md-4" type="submit" value="提交" />
+	</form>
+    <script type="text/javascript">
+     $('#user_form').validate({
+    	rules:{
+    		userName:{
+    			required:true,
+    			rangelength:[4,6]
+    		}
+    	},
+    	messages:{
+    		userName:{
+    			required:"用户名必须填写",
+    			rangelength:"用户名长度在4-6之间."
+    		}
+    	}
+    }); 
+    
+    
+    </script>
+    </div>
+</body>
+</html>

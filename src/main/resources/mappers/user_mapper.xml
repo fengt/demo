@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xjw.UserMapper">
+
+    <resultMap id="userResultMap" type="com.xjw.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" />
+        <result column="first_name" property="firstName"  />
+        <result column="last_name" property="lastName"  />
+        <result column="created_date" property="createdDate" />
+        <result column="last_accessed" property="lastAccessed" />
+        <result column="is_active" property="isActive"/>
+    </resultMap>
+
+
+	<sql id="User_Column_List">
+        id,user_name,first_name,last_name,created_date,last_accessed,is_active
+    </sql>
+    
+    
+	<select id="select" resultMap="userResultMap">
+        select <include refid="User_Column_List"/> from users
+    </select>
+
+	<select id="findById"  resultMap="userResultMap">
+    	select <include refid="User_Column_List"/> from users where id = #{id}
+    </select>
+    
+    
+    <insert id="insert" parameterType="com.xjw.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into users(user_name,first_name,last_name,is_active)
+        values(
+          #{userName,jdbcType=VARCHAR},
+          #{firstName,jdbcType=VARCHAR},
+          #{lastName,jdbcType=VARCHAR},
+          #{isActive,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <update id="update">
+        update users set user_name=#{userName}, first_name = #{firstName},last_name = #{lastName},
+        last_accessed = #{lastAccessed} where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="INTEGER" >
+        delete from users where id = #{id}
+    </delete>
+    
+</mapper>
