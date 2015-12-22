@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="${layout}">
+<head>
+    <title>首页</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+<div layout:fragment="content">
+<div class="row">
+	<div class="col-md-12">
+    	<a th:href="@{'/user/new'}" class="btn btn-success">新增用户</a>
+	</div>
+</div>
+    <h2 class="sub-header">Section title</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名称</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>创建时间</th>
+                <th>最后操作时间</th>
+                <th>是否激活</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user:${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${#dates.format(user.createdDate,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(user.lastAccessed,'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${user.isActive ? '是' : '否'}"></td>
+                <td>
+                    <a class="" th:href="${'/user/'+user.id+'/edit'}">修改</a>
+                    <a th:href="${'/user/'+user.id+'/delete'}">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</body>
+</html>

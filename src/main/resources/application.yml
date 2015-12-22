@@ -1,0 +1,21 @@
+spring:
+  profiles.active: DEVELOP
+  thymeleaf:
+    cache: false
+
+LOGIN:
+  SESSION:
+    ID: "LoginUserInfo"
+  URL: "http://login.wuliusys.com"
+
+---
+spring:
+  profiles: DEVELOP
+  PX-M1_ENV: DEVELOP
+  datasource:
+    driver-class: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password:
+server:
+  port: 8082
