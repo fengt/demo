@@ -6,9 +6,9 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ImportResource("classpath:applicationContext.xml")
-public class Application {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 }

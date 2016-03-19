@@ -14,6 +14,8 @@ public class UserService extends BaseService<User>{
 	private static final String NAMESPACE = "com.xjw.UserMapper";
 	
 	public List<User> query(){
+		log.debug("This is DEBUG message.");
+		log.info("This is INFO message.");
 		return myBatisDao.getSqlSession().selectList(NAMESPACE + ".select");
 	}
 	
